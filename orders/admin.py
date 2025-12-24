@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from .models import Order, OrderItem
+from django.conf import settings
 
 # --- ФУНКЦІЯ-ДІЯ (Генерація ТТН) ---
 @admin.action(description='Згенерувати ТТН для обраних')
@@ -10,23 +11,46 @@ def generate_ttn_action(modeladmin, request, queryset):
             
             continue
             
+        # Перевірка наявності даних отримувача
+        if not order.city_ref or not order.warehouse_ref:
+            modeladmin.message_user(request, f"Замовлення {order.id}: Відсутні дані про доставку (CityRef/WarehouseRef).", level=messages.ERROR)
+            continue
+
+        # Збираємо конфіг відправника з settings
+        sender_config = {
+            'sender_ref': settings.NOVA_POSHTA_SENDER_REF,
+            'city_ref': settings.NOVA_POSHTA_SENDER_CITY_REF,
+            'address_ref': settings.NOVA_POSHTA_SENDER_ADDRESS_REF,
+            'contact_ref': settings.NOVA_POSHTA_SENDER_CONTACT_REF,
+            'phone': settings.NOVA_POSHTA_SENDER_PHONE
+        }
+
+        # Перевіряємо чи налаштовано відправника
+        if not all(sender_config.values()):
+            modeladmin.message_user(request, "Не налаштовано дані відправника в settings.py!", level=messages.ERROR)
+            return
+
         try:
-            # === ТУТ БУДЕ ПІДКЛЮЧЕННЯ ДО API НОВОЇ ПОШТИ ===
-            # Поки що ми генеруємо "фейковий" номер для тесту логіки
-            fake_ttn = f"204500{order.id}9999" 
+            from .nova_poshta_service import nova_poshta_service
             
-            order.ttn = fake_ttn
-            order.status = 'shipped' 
-            order.save()
-            count += 1
+            result = nova_poshta_service.create_waybill(order, sender_config)
+            
+            if result['success']:
+                order.ttn = result['ttn']
+                order.status = 'shipped'
+                order.save()
+                count += 1
+            else:
+                 error_msg = "; ".join(result.get('errors', []))
+                 modeladmin.message_user(request, f"Помилка НП для {order.id}: {error_msg}", level=messages.ERROR)
+
         except Exception as e:
             modeladmin.message_user(request, f"Помилка з замовленням {order.id}: {e}", level=messages.ERROR)
 
-    
     if count > 0:
         modeladmin.message_user(request, f"Успішно створено ТТН для {count} замовлень!", level=messages.SUCCESS)
     else:
-        modeladmin.message_user(request, "Не оновлено жодного замовлення (можливо, ТТН вже існують).", level=messages.WARNING)
+        modeladmin.message_user(request, "Процес завершено.", level=messages.INFO)
 
 
 class OrderItemInline(admin.TabularInline):
