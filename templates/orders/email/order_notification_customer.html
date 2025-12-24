@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .header {
+            background-color: #198754;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .order-info {
+            margin: 20px 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            padding: 20px 0;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>FixWatt Store</h1>
+        <p>Дякуємо за ваше замовлення!</p>
+    </div>
+
+    <div class="order-info">
+        <p><strong>Вітаємо, {{ order.first_name }}!</strong></p>
+        <p>Ми отримали ваше замовлення <strong>№{{ order.id }}</strong>.</p>
+        <p>Статус: <span style="background-color: #ffc107; padding: 3px 8px; border-radius: 4px;">Очікує
+                підтвердження</span></p>
+    </div>
+
+    <h3>Деталі замовлення:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Кількість</th>
+                <th>Ціна</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }} шт.</td>
+                <td>{{ item.get_cost }} грн</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        Загальна сума: {{ order.get_total_cost }} грн
+    </div>
+
+    <div class="footer">
+        <p>Якщо у вас є питання, відповідайте на цей лист.</p>
+        <p>&copy; 2025 FixWatt Store.</p>
+    </div>
+</body>
+
+</html>

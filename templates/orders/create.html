@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Оформлення замовлення{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Оформлення замовлення</h1>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Ваші контактні дані</h3>
+
+                    <form method="post" class="order-form">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}<div class="text-danger small mt-1">{{ form.first_name.errors|striptags }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}<div class="text-danger small mt-1">{{ form.last_name.errors|striptags }}</div>{% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                             {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors|striptags }}</div>{% endif %}
+                        </div>
+                         <div class="mb-3">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                             {% if form.phone.errors %}<div class="text-danger small mt-1">{{ form.phone.errors|striptags }}</div>{% endif %}
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h4 class="mb-3">Доставка (Нова Пошта)</h4>
+
+                        <div class="mb-3">
+                            {{ form.city_name.label_tag }}
+                            {{ form.city_name }}
+                            {% if form.city_name.errors %}<div class="text-danger small mt-1">{{ form.city_name.errors|striptags }}</div>{% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.warehouse_name.label_tag }}
+                            {{ form.warehouse_name }}
+                            {% if form.warehouse_name.errors %}<div class="text-danger small mt-1">{{ form.warehouse_name.errors|striptags }}</div>{% endif %}
+                        </div>
+
+                        <div style="display:none;">
+                            {{ form.city_ref }}
+                            {{ form.warehouse_ref }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100 mt-3">Підтвердити замовлення</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title d-flex justify-content-between align-items-center mb-3">
+                        <span>Ваше замовлення</span>
+                        <span class="badge bg-primary rounded-pill">{{ cart|length }}</span>
+                    </h4>
+                    <ul class="list-group list-group-flush">
+                        {% for item in cart %}
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">{{ item.product.name }}</h6>
+                                    <small class="text-muted">Кількість: {{ item.quantity }}</small>
+                                </div>
+                                <span class="text-muted">{{ item.total_price }} ₴</span>
+                            </li>
+                        {% endfor %}
+                        <li class="list-group-item d-flex justify-content-between fw-bold fs-5">
+                            <span>Всього до сплати</span>
+                            <strong>{{ cart.get_total_price }} ₴</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nova-poshta-urls" style="display: none;">
+        <span id="city-search-url" data-url="{% url 'orders:nova_poshta_cities' %}"></span>
+        <span id="warehouse-search-url" data-url="{% url 'orders:nova_poshta_warehouses' %}"></span>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'orders/js/nova_poshta_autocomplete.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'img/no-image.png' %}" class="img-fluid rounded shadow-sm" alt="No image">
+            {% endif %}
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 fw-bold">{{ product.name }}</h1>
+            <p class="lead text-muted">{{ product.description }}</p>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+                {% if product.discount_price %}
+                    <div class="price-wrapper">
+                        <del class="fs-4 text-muted">{{ product.price }} ₴</del>
+                        <span class="fs-2 fw-bold text-danger">{{ product.discount_price }} ₴</span>
+                    </div>
+                {% else %}
+                    <span class="fs-2 fw-bold">{{ product.price }} ₴</span>
+                {% endif %}
+            </div>
+            <div class="mt-4">
+                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="d-flex align-items-end">
+                    {% csrf_token %}
+                    <div class="me-3">
+                        <label for="{{ cart_product_form.quantity.id_for_label }}" class="form-label">Кількість:</label>
+                        {{ cart_product_form.quantity }}
+                    </div>
+                    {{ cart_product_form.override }}
+                    <button type="submit" class="btn btn-primary btn-lg">Додати в кошик</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cartSuccessModal" tabindex="-1" aria-labelledby="cartSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="cartSuccessModalLabel">Товар додано!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Товар успішно додано до кошика. Що ви бажаєте робити далі?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Продовжити покупки</button>
+                <button type="button" class="btn btn-primary" id="goToCartButton">Перейти до кошика</button>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var CART_DETAIL_URL = "{% url 'cart:cart_detail' %}";
+    </script>
+    <script src="{% static 'products/js/product_detail.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+# General
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Media (if you don't want to commit uploaded files)
+media/
+
+# Static (collected)
+staticfiles/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Project specific temp files
+*.json
+!fixtures/
+check_*.py
+inspect_*.py
+verify_*.py
+export_*.py
+truncate_*.py

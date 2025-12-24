@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Вхід</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Помилка!</strong> Невірний логін або пароль.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fw-bold">Логін (Username)</label>
+                            <input type="text" name="username" class="form-control form-control-lg" id="id_username"
+                                placeholder="Введіть ваш логін" required autofocus>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label fw-bold">Пароль</label>
+                            <input type="password" name="password" class="form-control form-control-lg" id="id_password"
+                                placeholder="Введіть ваш пароль" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 btn-lg">Увійти</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <p class="mb-0 text-muted">Ще не маєте акаунту? <a href="{% url 'register' %}"
+                            class="text-success fw-bold text-decoration-none">Зареєструватися</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Каталог товарів{% endif %} - FixWatt Store
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 mb-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">Категорії</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{% url 'products:product_list' %}"
+                    class="list-group-item list-group-item-action {% if not category %}active bg-success border-success{% endif %}">
+                    Всі товари
+                </a>
+                {% for c in categories %}
+                <a href="{{ c.get_absolute_url }}"
+                    class="list-group-item list-group-item-action {% if category.slug == c.slug %}active bg-success border-success{% endif %}">
+                    {{ c.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-0">
+                {% if category %}{{ category.name }}{% else %}Всі товари{% endif %}
+            </h2>
+            <span class="text-muted">{{ products.count }} товарів</span>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for product in products %}
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm product-card">
+                    <div class="product-image-wrapper position-relative">
+                        {% if product.image %}
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        </a>
+                        {% else %}
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{% static 'img/no_image.png' %}" class="card-img-top" alt="No image">
+                        </a>
+                        {% endif %}
+                        {% if product.discount_price %}
+                        <span class="position-absolute top-0 start-0 badge bg-danger m-2">-Sale</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">
+                            <a href="{{ product.get_absolute_url }}"
+                                class="text-decoration-none text-dark stretched-link">
+                                {{ product.name }}
+                            </a>
+                        </h5>
+                        <div class="mt-auto">
+                            {% if product.discount_price %}
+                            <p class="card-text mb-0 text-decoration-line-through text-muted small">{{ product.price }}
+                                грн</p>
+                            <p class="card-text fw-bold text-danger fs-5">{{ product.discount_price }} грн</p>
+                            {% else %}
+                            <p class="card-text fw-bold fs-5">{{ product.price }} грн</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0 pt-0">
+                        <a href="{{ product.get_absolute_url }}"
+                            class="btn btn-outline-primary w-100 rounded-pill">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-box-open fs-1 text-muted mb-3"></i>
+                <p class="text-muted">У цій категорії поки немає товарів.</p>
+                <a href="{% url 'products:product_list' %}" class="btn btn-primary">Переглянути всі товари</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

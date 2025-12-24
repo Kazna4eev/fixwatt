@@ -1,0 +1,5 @@
+django>=4.2.25
+pillow
+requests
+psycopg2-binary
+python-dotenv

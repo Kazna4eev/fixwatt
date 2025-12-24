@@ -1,0 +1,16 @@
+НОВЕ ЗАМОВЛЕННЯ №{{ order.id }}
+-----------------------------
+Клієнт: {{ order.first_name }} {{ order.last_name }}
+Email: {{ order.email }}
+Телефон: {{ order.phone }}
+Місто: {{ order.city_name }}
+Відділення: {{ order.warehouse_name }}
+
+ТОВАРИ:
+{% for item in order.items.all %}
+- {{ item.product.name }} (x{{ item.quantity }}) — {{ item.get_cost }} грн
+{% endfor %}
+
+-----------------------------
+ЗАГАЛЬНА СУМА: {{ order.get_total_cost }} грн
+-----------------------------
