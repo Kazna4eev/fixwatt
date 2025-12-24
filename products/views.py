@@ -40,3 +40,11 @@ def product_detail(request, slug):
         'cart_product_form': cart_product_form
     }
     return render(request, 'products/product_detail.html', context)
+
+
+def payment(request):
+    return render(request, 'products/payment.html')
+
+
+def delivery(request):
+    return render(request, 'products/delivery.html')

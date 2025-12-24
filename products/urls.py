@@ -17,4 +17,8 @@ urlpatterns = [
     
     # Детальна сторінка товару
     path('product/<slug:slug>/', views.product_detail, name='product_detail'),
+
+    # Інформаційні сторінки
+    path('payment/', views.payment, name='payment'),
+    path('delivery/', views.delivery, name='delivery'),
 ]

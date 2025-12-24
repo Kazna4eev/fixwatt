@@ -6,84 +6,165 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-3 mb-4">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold">Категорії</h5>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar filters -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm sticky-top" style="top: 90px; z-index: 1000;">
+                <div class="card-header bg-white py-3 border-0">
+                    <h5 class="mb-0 fw-bold"><i class="fas fa-filter text-primary me-2"></i>Категорії</h5>
+                </div>
+                <div class="list-group list-group-flush p-2">
+                    <a href="{% url 'products:product_list' %}"
+                        class="list-group-item list-group-item-action rounded mb-1 border-0 {% if not category %}active fw-bold shadow-sm{% endif %}">
+                        <i class="fas fa-th-large me-2"></i> Всі товари
+                    </a>
+                    {% for c in categories %}
+                    <a href="{{ c.get_absolute_url }}"
+                        class="list-group-item list-group-item-action rounded mb-1 border-0 {% if category.slug == c.slug %}active fw-bold shadow-sm{% endif %}">
+                        <i class="fas fa-chevron-right me-2 small"></i> {{ c.name }}
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="list-group list-group-flush">
-                <a href="{% url 'products:product_list' %}"
-                    class="list-group-item list-group-item-action {% if not category %}active bg-success border-success{% endif %}">
-                    Всі товари
-                </a>
-                {% for c in categories %}
-                <a href="{{ c.get_absolute_url }}"
-                    class="list-group-item list-group-item-action {% if category.slug == c.slug %}active bg-success border-success{% endif %}">
-                    {{ c.name }}
-                </a>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm border-0">
+                <h2 class="fw-bold mb-0 fs-4">
+                    {% if category %}{{ category.name }}{% else %}Всі товари{% endif %}
+                </h2>
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ products.count }}
+                    знайдено</span>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+                {% for product in products %}
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm product-card hover-lift">
+                        <div class="product-image-wrapper position-relative overflow-hidden bg-light rounded-top">
+                            {% if product.image %}
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.url }}" class="card-img-top product-img"
+                                    alt="{{ product.name }}">
+                            </a>
+                            {% else %}
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{% static 'img/no_image.png' %}" class="card-img-top product-img"
+                                    alt="No image">
+                            </a>
+                            {% endif %}
+
+                            {% if product.discount_price %}
+                            <div class="position-absolute top-0 start-0 m-2">
+                                <span class="badge bg-danger shadow-sm">-SALE</span>
+                            </div>
+                            {% endif %}
+
+                            <div
+                                class="product-actions position-absolute top-50 start-50 translate-middle d-flex gap-2">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-light rounded-circle shadow-sm"
+                                    title="Переглянути"><i class="fas fa-eye"></i></a>
+                                <!-- Placeholder for quick add to cart -->
+                                <!-- <button class="btn btn-primary rounded-circle shadow-sm"><i class="fas fa-shopping-cart"></i></button> -->
+                            </div>
+                        </div>
+
+                        <div class="card-body d-flex flex-column p-3">
+                            <div class="mb-2">
+                                <small class="text-muted">{{ product.category.name }}</small>
+                            </div>
+                            <h6 class="card-title fw-bold mb-3">
+                                <a href="{{ product.get_absolute_url }}"
+                                    class="text-decoration-none text-dark stretched-link">
+                                    {{ product.name|truncatechars:50 }}
+                                </a>
+                            </h6>
+
+                            <div class="mt-auto d-flex align-items-end justify-content-between">
+                                <div>
+                                    {% if product.discount_price %}
+                                    <div class="text-decoration-line-through text-muted small">{{ product.price }} грн
+                                    </div>
+                                    <div class="fw-bold text-danger fs-5">{{ product.discount_price }}
+                                        <small>грн</small></div>
+                                    {% else %}
+                                    <div class="text-white small user-select-none">.</div>
+                                    <div class="fw-bold fs-5 text-dark">{{ product.price }} <small>грн</small></div>
+                                    {% endif %}
+                                </div>
+                                <div class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 32px; height: 32px; z-index: 2;">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="py-5">
+                        <i class="fas fa-search fs-1 text-muted mb-3 opacity-50"></i>
+                        <h4 class="text-muted">Товарів не знайдено</h4>
+                        <p class="text-muted mb-4">Спробуйте змінити категорію або фільтри.</p>
+                        <a href="{% url 'products:product_list' %}" class="btn btn-primary rounded-pill px-4">Всі
+                            товари</a>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-
-    <div class="col-lg-9">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">
-                {% if category %}{{ category.name }}{% else %}Всі товари{% endif %}
-            </h2>
-            <span class="text-muted">{{ products.count }} товарів</span>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for product in products %}
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm product-card">
-                    <div class="product-image-wrapper position-relative">
-                        {% if product.image %}
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                        </a>
-                        {% else %}
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="{% static 'img/no_image.png' %}" class="card-img-top" alt="No image">
-                        </a>
-                        {% endif %}
-                        {% if product.discount_price %}
-                        <span class="position-absolute top-0 start-0 badge bg-danger m-2">-Sale</span>
-                        {% endif %}
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">
-                            <a href="{{ product.get_absolute_url }}"
-                                class="text-decoration-none text-dark stretched-link">
-                                {{ product.name }}
-                            </a>
-                        </h5>
-                        <div class="mt-auto">
-                            {% if product.discount_price %}
-                            <p class="card-text mb-0 text-decoration-line-through text-muted small">{{ product.price }}
-                                грн</p>
-                            <p class="card-text fw-bold text-danger fs-5">{{ product.discount_price }} грн</p>
-                            {% else %}
-                            <p class="card-text fw-bold fs-5">{{ product.price }} грн</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="card-footer bg-white border-0 pt-0">
-                        <a href="{{ product.get_absolute_url }}"
-                            class="btn btn-outline-primary w-100 rounded-pill">Детальніше</a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <i class="fas fa-box-open fs-1 text-muted mb-3"></i>
-                <p class="text-muted">У цій категорії поки немає товарів.</p>
-                <a href="{% url 'products:product_list' %}" class="btn btn-primary">Переглянути всі товари</a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
 </div>
+
+<style>
+    .hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    }
+
+    .product-image-wrapper {
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-img {
+        max-height: 100%;
+        width: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    .hover-lift:hover .product-img {
+        transform: scale(1.05);
+    }
+
+    .product-actions {
+        opacity: 0;
+        transform: translate(-50%, -40%) !important;
+        transition: all 0.3s ease;
+    }
+
+    .hover-lift:hover .product-actions {
+        opacity: 1;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    /* Active state for category links */
+    .list-group-item.active {
+        background-color: var(--brand-green) !important;
+        border-color: var(--brand-green) !important;
+    }
+
+    .text-primary {
+        color: var(--brand-green) !important;
+    }
+</style>
 {% endblock %}

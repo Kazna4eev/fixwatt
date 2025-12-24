@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Доставка та графік роботи - FixWatt{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Delivery Block -->
+        <div class="col-md-6 mb-4">
+            <h2 class="mb-3 text-center text-md-start"><i class="fas fa-truck text-primary me-2"></i> Доставка</h2>
+            <div class="card shadow border-0 h-100 hover-card">
+                <div class="card-body p-4 border-start border-5 border-primary">
+                    <p class="lead">
+                        Ми здійснюємо доставку по всій Україні за допомогою компанії <strong class="text-danger">Нова
+                            Пошта</strong>.
+                    </p>
+                    <ul class="list-group list-group-flush mt-4">
+                        <li class="list-group-item border-0 ps-0"><i class="fas fa-check-circle text-success me-2"></i>
+                            Відправка товарів здійснюється протягом 1-3 днів.</li>
+                        <li class="list-group-item border-0 ps-0"><i class="fas fa-clock text-info me-2"></i> Термін
+                            доставки: 1-3 дні після відправки замовлення.</li>
+                        <li class="list-group-item border-0 ps-0"><i class="fas fa-calculator text-warning me-2"></i>
+                            Вартість доставки розраховується за тарифами перевізника.</li>
+                        <li class="list-group-item border-0 ps-0"><i class="fas fa-box-open text-danger me-2"></i>
+                            Доставка здійснюється лише послугами Нової Пошти.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Block -->
+        <div class="col-md-6 mb-4">
+            <h2 class="mb-3 text-center text-md-start"><i class="fas fa-clock text-warning me-2"></i> Графік роботи</h2>
+            <div class="card shadow border-0 h-100 hover-card">
+                <div class="card-body p-4 border-start border-5 border-warning">
+                    <p class="lead">Наш магазин працює за наступним графіком:</p>
+                    <table class="table table-borderless mt-3">
+                        <tbody>
+                            <tr class="align-middle">
+                                <td><i class="fas fa-calendar-day text-muted me-2"></i> Понеділок - П'ятниця:</td>
+                                <td class="text-end"><span class="badge bg-success rounded-pill fs-6">10:00 -
+                                        19:00</span></td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td><i class="fas fa-calendar-day text-muted me-2"></i> Субота:</td>
+                                <td class="text-end"><span class="badge bg-danger rounded-pill fs-6">Вихідний</span>
+                                </td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td><i class="fas fa-calendar-day text-muted me-2"></i> Неділя:</td>
+                                <td class="text-end"><span class="badge bg-info rounded-pill fs-6">10:00 - 16:00</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="alert alert-light border mt-3 d-flex align-items-center" role="alert">
+                        <i class="fas fa-globe text-primary me-3 fs-4"></i>
+                        <div>
+                            Замовлення на сайті приймаються <br><strong>цілодобово 24/7</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+    }
+</style>
+{% endblock %}

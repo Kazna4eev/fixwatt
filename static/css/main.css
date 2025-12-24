@@ -267,11 +267,102 @@ body {
     font-weight: 500;
     box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
     transition: all 0.3s ease;
+    color: #495057;
+    /* Dark color for light mode */
+    border-color: #dee2e6;
 }
 
 .cart-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+    color: var(--brand-green);
+    border-color: var(--brand-green);
+}
+
+[data-bs-theme="dark"] .cart-btn {
+    color: #e0e0e0;
+    /* Light color for dark mode */
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .cart-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--brand-green);
+}
+
+/* === PRODUCT LIST STYLES === */
+.hero-banner {
+    background: radial-gradient(circle at top right, #f8f9fa, #e9ecef);
+    transition: background 0.3s ease;
+}
+
+[data-bs-theme="dark"] .hero-banner {
+    background: radial-gradient(circle at top right, #2b2b2b, #1a1a1a) !important;
+}
+
+[data-bs-theme="dark"] .dark-mode-text {
+    color: #b0b0b0 !important;
+}
+
+/* Features Banner Styles */
+.features-banner {
+    background-color: #f8f9fa;
+    /* Light mode bg */
+    color: #212529;
+    /* Light mode text */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme="dark"] .features-banner {
+    background-color: #212529 !important;
+    /* Dark mode bg */
+    color: #f8f9fa !important;
+    /* Dark mode text */
+    border-top: 1px solid #373b3e;
+}
+
+[data-bs-theme="dark"] .features-banner .text-muted {
+    color: #b0b0b0 !important;
+}
+
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.product-image-wrapper {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.product-img {
+    max-height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-actions {
+    opacity: 0;
+    transform: translate(-50%, -40%) !important;
+    transition: all 0.3s ease;
+}
+
+.hover-lift:hover .product-actions {
+    opacity: 1;
+    transform: translate(-50%, -50%) !important;
 }
 
 /* === DARK MODE OVERRIDES (NEW) === */
@@ -288,12 +379,12 @@ body {
     color: var(--brand-green);
 }
 
-/* === СТИЛІЗАЦІЯ AUTOCOMPLETE (jQuery UI) === */
+/* Autocomplete Styles */
 .ui-autocomplete {
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: 1051 !important;
+    z-index: 1050 !important;
     display: none;
     float: left;
     min-width: 10rem;

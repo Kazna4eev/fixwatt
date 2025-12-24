@@ -4,93 +4,215 @@
 {% block title %}Головна - FixWatt Store{% endblock %}
 
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3 shadow-sm hero-section position-relative overflow-hidden">
-    <div class="container-fluid py-5 position-relative" style="z-index: 2;">
-        <h1 class="display-5 fw-bold brand-text">Ласкаво просимо до FixWatt</h1>
-        <p class="col-md-8 fs-4">Найкращі рішення для вашого енергонезалежного дому. Знайдіть все необхідне в нашому
-            каталозі.</p>
-        <a href="{% url 'products:product_list' %}" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">Перейти
-            до каталогу</a>
-    </div>
-    <div class="hero-bg-icon position-absolute top-50 end-0 translate-middle-y opacity-25 me-5">
-        <i class="fas fa-bolt" style="font-size: 15rem; color: var(--brand-green);"></i>
+<!-- Hero Section -->
+<div class="container mb-5 mt-4">
+    <div class="row g-0 align-items-center bg-light rounded-3 overflow-hidden shadow-sm hero-banner">
+        <div class="col-lg-6 p-5">
+            <div class="py-lg-5">
+                <span class="badge bg-success bg-opacity-10 text-success mb-3 px-3 py-2 rounded-pill fw-bold">Нова
+                    колекція 2025</span>
+                <h1 class="display-4 fw-bold mb-4 brand-text">Ласкаво просимо до <span
+                        class="text-success">FixWatt</span></h1>
+                <p class="lead mb-4 text-muted dark-mode-text">Ваш надійний партнер у світі електроніки. Найкращі
+                    рішення для
+                    енергонезалежного дому, освітлення та гаджетів.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="{% url 'products:product_list' %}"
+                        class="btn btn-primary btn-lg rounded-pill px-4 me-md-2 shadow-sm">
+                        <i class="fas fa-shopping-bag me-2"></i>До каталогу
+                    </a>
+                    <a href="#featured" class="btn btn-outline-secondary btn-lg rounded-pill px-4">
+                        Популярне
+                    </a>
+                </div>
+                <div class="mt-5 d-flex gap-4 text-muted small dark-mode-text">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i> Гарантія якості
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-truck text-success me-2"></i> Швидка доставка
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block position-relative hero-image-container"
+            style="min-height: 400px; background: linear-gradient(135deg, rgba(40,167,69,0.1) 0%, rgba(255,255,255,0) 100%);">
+            <div class="text-center position-absolute top-50 start-50 translate-middle w-100">
+                <i class="fas fa-bolt text-success opacity-25"
+                    style="font-size: 15rem; filter: drop-shadow(0 10px 20px rgba(40,167,69,0.2));"></i>
+            </div>
+        </div>
     </div>
 </div>
 
-<section class="mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Рекомендовані товари</h2>
-        <a href="{% url 'products:product_list' %}" class="text-decoration-none fw-bold text-success">Всі товари <i
-                class="fas fa-arrow-right ms-1"></i></a>
+<!-- Featured Products Section -->
+<section id="featured" class="mb-5 container">
+    <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-2">
+        <div>
+            <h2 class="fw-bold mb-1"><i class="fas fa-star text-warning me-2"></i>Рекомендовані товари</h2>
+            <p class="text-muted small mb-0">Топ продажів та вибір покупців</p>
+        </div>
+        <a href="{% url 'products:product_list' %}" class="btn btn-link text-decoration-none fw-bold text-success p-0">
+            Всі пропозиції <i class="fas fa-arrow-right ms-1"></i>
+        </a>
     </div>
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {% for product in featured_products %}
         <div class="col">
-            <div class="card h-100 border-0 shadow-sm product-card">
-                <div class="product-image-wrapper position-relative">
+            <div class="card h-100 border-0 shadow-sm product-card hover-lift">
+                <div class="product-image-wrapper position-relative bg-white rounded-top overflow-hidden">
                     {% if product.image %}
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
                     </a>
                     {% else %}
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{% static 'img/no_image.png' %}" class="card-img-top" alt="No image">
+                        <img src="{% static 'img/no_image.png' %}" class="card-img-top product-img" alt="No image">
                     </a>
                     {% endif %}
-                    <span class="position-absolute top-0 start-0 badge bg-warning text-dark m-2"><i
-                            class="fas fa-star me-1"></i>Top</span>
+
+                    <div class="position-absolute top-0 start-0 m-2">
+                        <span class="badge bg-warning text-dark shadow-sm"><i class="fas fa-fire me-1"></i>Хіт</span>
+                    </div>
+
+                    <div class="product-actions position-absolute top-50 start-50 translate-middle d-flex gap-2">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-light rounded-circle shadow-sm"
+                            title="Детальніше"><i class="fas fa-eye"></i></a>
+                    </div>
                 </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">
+
+                <div class="card-body d-flex flex-column p-3">
+                    <div class="mb-2">
+                        <small class="text-muted">{{ product.category.name|default:"Категорія" }}</small>
+                    </div>
+                    <h6 class="card-title fw-bold mb-3">
                         <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark stretched-link">
-                            {{ product.name }}
+                            {{ product.name|truncatechars:45 }}
                         </a>
-                    </h5>
-                    <div class="mt-auto">
-                        <p class="card-text fw-bold fs-5">{{ product.get_display_price }} грн</p>
+                    </h6>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if product.discount_price %}
+                            <div class="text-decoration-line-through text-muted small lh-1">{{ product.price }} грн
+                            </div>
+                            <div class="fw-bold fs-5 text-danger">{{ product.discount_price }} <small
+                                    class="fs-6 text-muted">грн</small></div>
+                            {% else %}
+                            <div class="fw-bold fs-5 text-primary">{{ product.price }} <small
+                                    class="fs-6 text-muted">грн</small></div>
+                            {% endif %}
+                        </div>
+                        <span class="btn btn-sm btn-outline-primary rounded-circle"><i
+                                class="fas fa-chevron-right"></i></span>
                     </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-muted">Немає рекомендованих товарів.</p>
+        <div class="col-12 text-center text-muted">
+            <p>У цьому розділі поки немає товарів.</p>
+        </div>
         {% endfor %}
     </div>
 </section>
 
-<section class="mb-5">
-    <h2 class="fw-bold mb-4">Новинки</h2>
+<!-- Latest Products Section -->
+<section class="mb-5 container">
+    <div class="d-flex justify-content-between align-items-end mb-4 border-bottom pb-2">
+        <div>
+            <h2 class="fw-bold mb-1"><i class="fas fa-clock text-info me-2"></i>Новинки</h2>
+            <p class="text-muted small mb-0">Останні надходження до каталогу</p>
+        </div>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         {% for product in latest_products %}
         <div class="col">
-            <div class="card h-100 border-0 shadow-sm product-card">
-                <div class="product-image-wrapper position-relative">
+            <div class="card h-100 border-0 shadow-sm product-card hover-lift">
+                <div class="product-image-wrapper position-relative bg-white rounded-top overflow-hidden">
                     {% if product.image %}
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
                     </a>
                     {% else %}
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{% static 'img/no_image.png' %}" class="card-img-top" alt="No image">
+                        <img src="{% static 'img/no_image.png' %}" class="card-img-top product-img" alt="No image">
                     </a>
                     {% endif %}
-                    <span class="position-absolute top-0 start-0 badge bg-info text-dark m-2">New</span>
+
+                    <div class="position-absolute top-0 start-0 m-2">
+                        <span class="badge bg-info text-dark shadow-sm">New</span>
+                    </div>
+
+                    <div class="product-actions position-absolute top-50 start-50 translate-middle d-flex gap-2">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-light rounded-circle shadow-sm"
+                            title="Детальніше"><i class="fas fa-eye"></i></a>
+                    </div>
                 </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">
+
+                <div class="card-body d-flex flex-column p-3">
+                    <div class="mb-2">
+                        <small class="text-muted">{{ product.category.name|default:"Категорія" }}</small>
+                    </div>
+                    <h6 class="card-title fw-bold mb-3">
                         <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark stretched-link">
-                            {{ product.name }}
+                            {{ product.name|truncatechars:45 }}
                         </a>
-                    </h5>
-                    <div class="mt-auto">
-                        <p class="card-text fw-bold fs-5">{{ product.get_display_price }} грн</p>
+                    </h6>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if product.discount_price %}
+                            <div class="text-decoration-line-through text-muted small lh-1">{{ product.price }} грн
+                            </div>
+                            <div class="fw-bold fs-5 text-danger">{{ product.discount_price }} <small
+                                    class="fs-6 text-muted">грн</small></div>
+                            {% else %}
+                            <div class="fw-bold fs-5 text-dark">{{ product.price }} <small
+                                    class="fs-6 text-muted">грн</small></div>
+                            {% endif %}
+                        </div>
+                        <span class="btn btn-sm btn-outline-dark rounded-circle"><i
+                                class="fas fa-chevron-right"></i></span>
                     </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-muted">Немає нових товарів.</p>
+        <div class="col-12 text-center text-muted">
+            <p>Новинок поки немає.</p>
+        </div>
         {% endfor %}
     </div>
 </section>
+
+<!-- Features Banner -->
+<section class="container-fluid features-banner py-5 mt-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="p-3">
+                    <i class="fas fa-shipping-fast text-success fs-1 mb-3"></i>
+                    <h4 class="fw-bold">Швидка доставка</h4>
+                    <p class="text-muted">Працюємо з Новою Поштою.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3">
+                    <i class="fas fa-headset text-success fs-1 mb-3"></i>
+                    <h4 class="fw-bold">Підтримка 24/7</h4>
+                    <p class="text-muted">Наші менеджери завжди готові допомогти вам з вибором та консультацією.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3">
+                    <i class="fas fa-shield-alt text-success fs-1 mb-3"></i>
+                    <h4 class="fw-bold">Гарантія якості</h4>
+                    <p class="text-muted">Лише сертифіковані товари від перевірених виробників з гарантією.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
