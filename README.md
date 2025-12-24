@@ -26,6 +26,19 @@
 ### Admin Panel
 ![Admin](docs/screenshots/admin.png)
 
+### 🚚 Delivery & Service
+![Delivery](docs/screenshots/delivery.png)
+Detailed information about delivery options, including Nova Poshta integration and self-pickup.
+
+### 💳 Payment Methods
+![Payment](docs/screenshots/payment.png)
+Secure payment options for customers, including cash on delivery and online payments.
+
+## 🕒 Work Schedule
+*   **Monday - Friday**: 09:00 - 18:00
+*   **Saturday**: 10:00 - 15:00
+*   **Sunday**: Closed
+
 ## 🛠 Technologies
 
 *   **Python 3.9+**
