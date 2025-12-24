@@ -1,6 +1,6 @@
 # ⚡ FixWatt – Electronics Store
 
-![FixWatt Banner](docs/screenshots/home.png)
+![FixWatt Banner](docs/screenshots/home.png?v=1)
 
 **FixWatt** – is a modern online electronics and lighting store developed with Django. The project includes a product catalog, shopping cart, checkout process, Nova Poshta integration, and an administrative panel for content management.
 
@@ -15,23 +15,23 @@
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](docs/screenshots/home.png)
+![Home Page](docs/screenshots/home.png?v=1)
 
 ### Product Catalog
-![Catalog](docs/screenshots/catalog.png)
+![Catalog](docs/screenshots/catalog.png?v=1)
 
 ### Checkout
-![Checkout](docs/screenshots/checkout.png)
+![Checkout](docs/screenshots/checkout.png?v=1)
 
 ### Admin Panel
-![Admin](docs/screenshots/admin.png)
+![Admin](docs/screenshots/admin.png?v=1)
 
 ### 🚚 Delivery & Service
-![Delivery](docs/screenshots/delivery.png)
+![Delivery](docs/screenshots/delivery.png?v=1)
 Detailed information about delivery options, including Nova Poshta integration and self-pickup.
 
 ### 💳 Payment Methods
-![Payment](docs/screenshots/payment.png)
+![Payment](docs/screenshots/payment.png?v=1)
 Secure payment options for customers, including cash on delivery and online payments.
 
 ## 🕒 Work Schedule
