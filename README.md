@@ -1,52 +1,52 @@
-# ⚡ FixWatt – Магазин Електроніки
+# ⚡ FixWatt – Electronics Store
 
 ![FixWatt Banner](docs/screenshots/home.png)
 
-**FixWatt** – це сучасний інтернет-магазин електроніки та освітлення, розроблений на Django. Проект включає в себе каталог товарів, кошик, оформлення замовлень, інтеграцію з Новою Поштою та адміністративну панель для керування контентом.
+**FixWatt** – is a modern online electronics and lighting store developed with Django. The project includes a product catalog, shopping cart, checkout process, Nova Poshta integration, and an administrative panel for content management.
 
-## 🚀 Основний Функціонал
+## 🚀 Key Features
 
-*   **Каталог Товарів**: Зручний перегляд товарів з фільтрацією за категоріями.
-*   **Кошик**: Додавання товарів, зміна кількості, автоматичний підрахунок суми.
-*   **Оформлення Замовлення**: Форма з валідацією даних та вибором доставки.
-*   **Особистий Кабінет**: Перегляд історії замовлень та статусу.
-*   **Темна/Світла Тема**: Адаптивний дизайн з підтримкою перемикання тем.
+*   **Product Catalog**: Convenient product browsing with category filtering.
+*   **Shopping Cart**: Adding products, changing quantities, automatic total calculation.
+*   **Checkout**: Form with data validation and delivery selection.
+*   **Personal Cabinet**: Viewing order history and status.
+*   **Dark/Light Theme**: Adaptive design with theme switching support.
 
-## 📸 Скріншоти
+## 📸 Screenshots
 
-### Головна Сторінка
-![Головна Сторінка](docs/screenshots/home.png)
+### Home Page
+![Home Page](docs/screenshots/home.png)
 
-### Каталог Товарів
-![Каталог](docs/screenshots/catalog.png)
+### Product Catalog
+![Catalog](docs/screenshots/catalog.png)
 
-### Оформлення Замовлення
-![Замовлення](docs/screenshots/checkout.png)
+### Checkout
+![Checkout](docs/screenshots/checkout.png)
 
-### Адмін Панель
-![Адмінка](docs/screenshots/admin.png)
+### Admin Panel
+![Admin](docs/screenshots/admin.png)
 
-## 🛠 Технології
+## 🛠 Technologies
 
 *   **Python 3.9+**
 *   **Django 4.2**
-*   **PostgreSQL** (База даних)
+*   **PostgreSQL** (Database)
 *   **Bootstrap 5** (Frontend)
 *   **JavaScript** (AJAX, UI interaction)
-*   **Docker** (опціонально для розгортання)
+*   **Docker** (optional for deployment)
 
-## ⚙️ Встановлення та Запуск
+## ⚙️ Installation and Setup
 
-### 1. Клонування репозиторію
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/your-username/FixWatt.git
 cd FixWatt
 ```
 
-### 2. Налаштування оточення
+### 2. Environment Setup
 
-Створіть віртуальне оточення та встановіть залежності:
+Create a virtual environment and install dependencies:
 
 ```bash
 python -m venv venv
@@ -58,42 +58,42 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Налаштування змінних середовища
+### 3. Environment Variables Setup
 
-Створіть файл `.env` в корені проекту (поруч з `manage.py`) та додайте налаштування бази даних та API:
+Create a `.env` file in the project root (next to `manage.py`) and add database and API settings:
 
 ```ini
 DEBUG=True
 SECRET_KEY=your_secret_key_here
 
-# Налаштування бази даних (PostgreSQL)
+# Database Settings (PostgreSQL)
 DB_NAME=fixwatt_db
 DB_USER=postgres
 DB_PASSWORD=your_password
 DB_HOST=127.0.0.1
 DB_PORT=5432
 
-# Нова Пошта API
+# Nova Poshta API
 NOVA_POSHTA_API_KEY=your_key
 NOVA_POSHTA_API_TOKEN=your_token
 ```
 
-### 4. Підготовка бази даних
+### 4. Database Preparation
 
-Переконайтеся, що PostgreSQL запущено, а базу даних `fixwatt_db` створено.
+Ensure PostgreSQL is running and the `fixwatt_db` database is created.
 
 ```bash
 python manage.py migrate
-python manage.py createsuperuser # Для доступу в адмінку
+python manage.py createsuperuser # To access the admin panel
 ```
 
-### 5. Запуск сервера
+### 5. Running the Server
 
 ```bash
 python manage.py runserver
 ```
 
-Відкрийте браузер за адресою [http://127.0.0.1:8000](http://127.0.0.1:8000).
+Open your browser at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ---
 © 2025 FixWatt Team
