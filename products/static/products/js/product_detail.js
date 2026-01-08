@@ -1,6 +1,5 @@
 $(document).ready(function () {
     console.log("Product detail script loaded");
-    // alert("JS Loaded! v2"); // Debug alert
 
     // Використовуємо делегування подій для надійності
     // Це працюватиме навіть якщо форма завантажується динамічно або DOM ще змінюється
