@@ -3,3 +3,8 @@ pillow
 requests
 psycopg2-binary
 python-dotenv
+djangorestframework
+django-filter
+drf-yasg
+django-import-export
+openpyxl

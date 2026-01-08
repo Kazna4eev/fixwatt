@@ -48,3 +48,29 @@ def payment(request):
 
 def delivery(request):
     return render(request, 'products/delivery.html')
+
+
+from rest_framework import viewsets
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from .serializers import ProductSerializer
+
+class ProductViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows products to be viewed.
+    Supports filtering, searching and ordering.
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    # 1. Підключаємо інструменти фільтрації
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+
+    # 2. Налаштування точних фільтрів
+    filterset_fields = ['category', 'is_featured']
+
+    # 3. Налаштування пошуку (входження тексту)
+    search_fields = ['name', 'description']
+
+    # 4. Налаштування сортування
+    ordering_fields = ['price', 'name']

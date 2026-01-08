@@ -467,3 +467,10 @@ a.ui-button:active,
     background-color: var(--brand-green);
     color: #fff;
 }
+
+/* === LOGO STYLES === */
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}

@@ -3,40 +3,74 @@
 {% block title %}Оплата - FixWatt{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">💸 Оплата</h1>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow border-0 hover-card">
-                <div class="card-body p-4 border-start border-5 border-success">
-                    <h3 class="card-title mb-4 text-success">Способи оплати</h3>
-                    <p class="card-text lead text-muted mb-4">
-                        Ми пропонуємо кілька зручних способів оплати для вашого комфорту:
+<div class="container py-5">
+    <div class="row mb-5 text-center">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="fw-bold mb-3">Оплата замовлення</h1>
+            <p class="lead text-muted">Виберіть найзручніший для вас спосіб оплати. Ми гарантуємо безпеку всіх
+                транзакцій.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Card: Online Payment -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="icon-wrapper mb-4 text-primary bg-primary bg-opacity-10 rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                        style="width: 80px; height: 80px;">
+                        <i class="fas fa-credit-card fs-2"></i>
+                    </div>
+                    <h4 class="card-title fw-bold mb-3">Оплата карткою</h4>
+                    <p class="card-text text-muted mb-4">
+                        Миттєва оплата на сайті картками Visa/Mastercard, а також через Apple Pay та Google Pay.
                     </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex align-items-center ps-0 border-0">
-                            <i class="fas fa-credit-card text-primary me-3 fs-4"></i>
-                            <div>
-                                <strong>Оплата карткою на сайті</strong>
-                                <div class="text-muted small">Visa, Mastercard, Apple Pay, Google Pay</div>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex align-items-center ps-0 border-0 mt-3">
-                            <i class="fas fa-money-bill-wave text-success me-3 fs-4"></i>
-                            <div>
-                                <strong>Післяплата (накладений платіж)</strong>
-                                <div class="text-muted small">Оплата готівкою або карткою при отриманні у відділенні
-                                    Нової Пошти</div>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex align-items-center ps-0 border-0 mt-3">
-                            <i class="fas fa-file-invoice-dollar text-secondary me-3 fs-4"></i>
-                            <div>
-                                <strong>Безготівковий розрахунок</strong>
-                                <div class="text-muted small">Для юридичних осіб надаємо рахунок-фактуру та всі
-                                    необхідні документи</div>
-                            </div>
-                        </li>
+                    <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 200px;">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Без комісії</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Безпека платежів</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Миттєве зарахування</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Cash on Delivery -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="icon-wrapper mb-4 text-success bg-success bg-opacity-10 rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                        style="width: 80px; height: 80px;">
+                        <i class="fas fa-box-open fs-2"></i>
+                    </div>
+                    <h4 class="card-title fw-bold mb-3">Післяплата</h4>
+                    <p class="card-text text-muted mb-4">
+                        Оплата при отриманні товару у відділенні "Нової Пошти". Перевірте товар перед оплатою.
+                    </p>
+                    <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 200px;">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Огляд товару</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Готівка або карта</li>
+                        <li><i class="fas fa-info-circle text-warning me-2"></i>Комісія перевізника</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Cashless -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm hover-lift">
+                <div class="card-body text-center p-4">
+                    <div class="icon-wrapper mb-4 text-info bg-info bg-opacity-10 rounded-circle mx-auto d-flex align-items-center justify-content-center"
+                        style="width: 80px; height: 80px;">
+                        <i class="fas fa-file-invoice fs-2"></i>
+                    </div>
+                    <h4 class="card-title fw-bold mb-3">Безготівковий розрахунок</h4>
+                    <p class="card-text text-muted mb-4">
+                        Для юридичних осіб та ФОП. Ми надаємо повний пакет бухгалтерських документів.
+                    </p>
+                    <ul class="list-unstyled text-muted small text-start mx-auto" style="max-width: 200px;">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Рахунок-фактура</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Накладна</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Договір поставки</li>
                     </ul>
                 </div>
             </div>
@@ -45,13 +79,13 @@
 </div>
 
 <style>
-    .hover-card {
+    .hover-lift {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hover-card:hover {
+    .hover-lift:hover {
         transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .1) !important;
     }
 </style>
 {% endblock %}

@@ -1,48 +1,48 @@
-$(function() {
-    function initializeCartModalLogic() {
-        $('form[action*="cart/add"]').on('submit', function(e) {
-            e.preventDefault();
+$(document).ready(function () {
+    console.log("Product detail script loaded");
+    // alert("JS Loaded! v2"); // Debug alert
 
-            // ЗБЕРІГАЄМО ЗМІННІ ФОРМИ
-            const form = $(this);
-            const url = form.attr('action');
-            const data = form.serialize();
+    // Використовуємо делегування подій для надійності
+    // Це працюватиме навіть якщо форма завантажується динамічно або DOM ще змінюється
+    $(document).on('submit', '.add-to-cart-form', function (e) {
+        console.log("Form submission intercepted");
+        e.preventDefault();
 
-            // Виконуємо AJAX-запит
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                dataType: 'json',
+        const form = $(this);
+        const url = form.attr('action');
+        const data = form.serialize();
 
-                success: function(data) {
-                    // === ТУТ ТИМЧАСОВЕ ПРИМУСОВЕ ПЕРЕНАПРАВЛЕННЯ ===
-                    // Це змусить браузер негайно перейти, оновити сесію і відобразити кошик
-                    if (data.status === 'ok') {
-                        // Оновлюємо лічильник кошика (якщо він є)
-                        if (data.quantity !== undefined) {
-                            // Припустимо, що у вас є елемент з id="cart-total-quantity"
-                            $('#cart-total-quantity').text(data.quantity);
-                        }
-
-                        // ПРИМУСОВЕ ПЕРЕНАПРАВЛЕННЯ:
-                        window.location.href = CART_DETAIL_URL;
-                    } else {
-                        // Якщо Django повернув статус не 'ok', показуємо помилку
-                        alert('Помилка додавання до кошика: невірний статус.');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                console.log("AJAX success", data);
+                if (data.status === 'ok') {
+                    // 1. Оновлюємо лічильник кошика
+                    if (data.quantity !== undefined) {
+                        var badge = $('#cart-badge');
+                        badge.text(data.quantity);
+                        badge.show();
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Помилка додавання до кошика:", error);
-                    alert("Помилка додавання до кошика. Спробуйте пізніше.");
+
+                    // 2. Показуємо модальне вікно
+                    var myModal = new bootstrap.Modal(document.getElementById('cartSuccessModal'));
+                    myModal.show();
+                } else {
+                    alert('Сталася помилка. Спробуйте ще раз.');
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", error);
+                alert("Не вдалося додати товар. Перевірте з'єднання.");
+            }
         });
+    });
 
-        // Блок для кнопки 'goToCartButton' тепер не потрібен, оскільки ми перенаправляємо одразу.
-        // Але ми його залишаємо, якщо ви вирішите повернути модальне вікно пізніше:
-        // $('#goToCartButton').on('click', function() { /* ... */ });
-    }
-
-    setTimeout(initializeCartModalLogic, 50);
+    // Кнопка "Перейти до кошика" в модальному вікні
+    $('#goToCartButton').on('click', function () {
+        window.location.href = CART_DETAIL_URL;
+    });
 });

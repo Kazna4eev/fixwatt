@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
+    'django_filters',
+    'drf_yasg',
+    'import_export',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -77,6 +81,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.active_banner',
                 'cart.context_processors.cart',
             ],
         },
@@ -156,7 +161,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 CART_SESSION_ID = 'cart'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Import Export settings
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+from import_export.formats.base_formats import XLSX, CSV, JSON
+IMPORT_EXPORT_FORMATS = [XLSX, CSV, JSON]
 
 NOVA_POSHTA_API_KEY = os.getenv('NOVA_POSHTA_API_KEY')
 NOVA_POSHTA_API_TOKEN = os.getenv('NOVA_POSHTA_API_TOKEN')
